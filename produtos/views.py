@@ -13,7 +13,7 @@ def listagem_produtos(request):
         "vendedor" : {"nome": "jão"},
         "produtos" : [
         {"nome": "mandioca", "preco" : 3}, 
-        {"nome": "melancia", "preco" : 4},
+        {"nome": "melancia", "preco" : 5},
         {"nome": "peixe", "preco" : 10},
         ]
     },
