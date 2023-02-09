@@ -1,22 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from produtos.models import Produto
 
 def listagem_produtos(request):
-    produtos_dos_vendedores= [{
-        "vendedor" : {"nome": "pedro"},
-        "produtos" : [
-        {"nome": "uva", "preco" : 2}, 
-        {"nome": "melancia", "preco" : 4},
-        {"nome": "banana", "preco" : 3},
-        ]
-    },
-    {
-        "vendedor" : {"nome": "jão"},
-        "produtos" : [
-        {"nome": "mandioca", "preco" : 3}, 
-        {"nome": "melancia", "preco" : 5},
-        {"nome": "peixe", "preco" : 10},
-        ]
-    },
-    ]
+    produtos = Produto.objects.all()
+    produtos_dos_vendedores = Produto.objects.all()
+    produtos_dos_vendedores = [{
+        "vendedor" : {"nome" : "maik"},
+        "produtos" : produtos
+    }]
     context = {"produtos_dos_vendedores": produtos_dos_vendedores}
     return render(request, "templates/listagem_produtos.html", context)
+
+def detalhamento_produto(request, id):
+    produto = get_object_or_404(Produto, pk=1)
+    context = {
+        "produto": produto
+    }
+    return render(request, "templates/detalhamento_produto.html", context)
