@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from produtos.models import Produto
 from produtos.forms import ProdutoModelForm
+from django.http import HttpResponseRedirect
+
 
 def listagem_produtos(request):
     produtos = Produto.objects.all()
@@ -24,4 +26,12 @@ def cadastrar_produto(request):
     context = {
         "form" : form
     }
+    if request.method == "GET":
+        print("É um GET")
+    if request.method == "POST":
+        print("É um POST")
+        form = ProdutoModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/produtos/")
     return render(request, "templates/cadastrar_produtos.html", context)
