@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 
 
 def listagem_produtos(request):
-    produtos = Produto.objects.all()
+    produtos = Produto.objects.filter(excluido =False)
     produtos_dos_vendedores = Produto.objects.all()
     produtos_dos_vendedores = [{
         "vendedor" : {"nome" : "maik"},
@@ -15,7 +15,7 @@ def listagem_produtos(request):
     return render(request, "templates/listagem_produtos.html", context)
 
 def detalhamento_produto(request, id):
-    produto = get_object_or_404(Produto, pk=1)
+    produto = get_object_or_404(Produto, pk=id)
     context = {
         "produto": produto
     }
@@ -35,3 +35,21 @@ def cadastrar_produto(request):
             form.save()
             return HttpResponseRedirect("/produtos/")
     return render(request, "templates/cadastrar_produtos.html", context)
+
+def excluir_produto(request, id):
+    produto = get_object_or_404(Produto, pk=id)
+    context = {
+        "produto": produto
+    }
+    return render(request, "templates/excluir_produto.html", context)
+
+def excluir_produto(request, id):
+    produto = get_object_or_404(Produto, pk=id)
+    if request.method == "POST":
+        produto.excluido = True
+        produto.save()
+        return HttpResponseRedirect("/produtos/")
+    context = {
+        "produto": produto
+    }
+    return render(request, "templates/excluir_produto.html", context)

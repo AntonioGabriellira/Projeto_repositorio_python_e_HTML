@@ -1,0 +1,25 @@
+{% extends "templates/base.html" %}
+{% block conteudo %}
+<style> 
+    .page-container{
+        display: grid;
+        justify-content: center;
+    }
+    form{
+        width: 200px;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+    }
+
+</style>
+<div class="page-container"> 
+    <h3> Deseja excluir o(a) {{produto.nome}}?</h3>
+    <form action="excluir" method="post">
+        {% csrf_token%}
+        <input type="submit" value="Excluir" />
+    </form>
+    <a href="/produtos/{{produto.id}}"> Voltar </a>
+{%endblock%}
