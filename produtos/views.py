@@ -69,3 +69,9 @@ def excluir_produto(request, id):
         "produto": produto
     }
     return render(request, "templates/excluir_produto.html", context)
+
+def listagem_servicos(request):
+    context = {
+
+    }
+    return render(request, "templates/listagem_servicos.html", context)
