@@ -36,6 +36,22 @@ def cadastrar_produto(request):
             return HttpResponseRedirect("/produtos/")
     return render(request, "templates/cadastrar_produtos.html", context)
 
+def alterar_produto(request, id):
+    produto = get_object_or_404(Produto, pk=id)
+    if request.method == "POST":
+        form = ProdutoModelForm(request.POST)
+        if form.is_valid():
+            produto.nome = form.cleaned_data["nome"]
+            produto.estoque = form.cleaned_data["estoque"]
+            produto.preco = form.cleaned_data["preco"]
+            produto.save()
+            return HttpResponseRedirect(f"/produtos/{produto.id}")
+    form = ProdutoModelForm(instance=produto)
+    context = {
+        "form": form
+    }
+    return render(request, "templates/alterar_produto.html", context)
+
 def excluir_produto(request, id):
     produto = get_object_or_404(Produto, pk=id)
     context = {
