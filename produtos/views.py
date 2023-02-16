@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from produtos.models import Produto
+from produtos.models import Produto, TIPO_PRODUTO, TIPO_SERVICO
 from produtos.forms import ProdutoModelForm
 from django.http import HttpResponseRedirect
 
 
 def listagem_produtos(request):
-    produtos = Produto.objects.filter(excluido =False)
+    produtos = Produto.objects.filter(tipo=TIPO_PRODUTO, excluido =False)
     produtos_dos_vendedores = Produto.objects.all()
     produtos_dos_vendedores = [{
         "vendedor" : {"nome" : "maik"},
@@ -71,7 +71,11 @@ def excluir_produto(request, id):
     return render(request, "templates/excluir_produto.html", context)
 
 def listagem_servicos(request):
-    context = {
+    servicos = Produto.objects.filter(tipo=TIPO_SERVICO, excluido =False)
 
-    }
+    servicos_dos_vendedores = [{
+        "vendedor" : {"nome" : "maik"},
+        "servicos" : servicos
+    }]
+    context = {"servicos_dos_vendedores": servicos_dos_vendedores }
     return render(request, "templates/listagem_servicos.html", context)

@@ -2,12 +2,14 @@
 
 {% block conteudo %}
     Listagem de serviços <a href="cadastrar"> Novo produto </a> 
-    {% for produtos_vendedor in produtos_dos_vendedores %}
+    {% for servico_do_vendedor in servicos_do_vendedores %}
         <div> 
-            <h3> {{produtos_vendedor.vendedor.nome}} </h3>
+            <h3> {{servico_do_vendedor.vendedor.nome}} </h3>
         </div>
         <ul style="list-style-type:none;">
-        
+        {% for servico in servico_do_vendedor.servicos %}
+            <li>{{ servico.nome}} -- R$ {{ servico.preco}} </li><a href="{{servico.id}}"> verificar detalhes </a>
+        {% endfor%}
         </ul>
     {% endfor%}
 {% endblock conteudo %}
