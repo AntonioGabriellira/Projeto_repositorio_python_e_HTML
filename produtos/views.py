@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from produtos.models import Produto, TIPO_PRODUTO, TIPO_SERVICO
-from produtos.forms import ProdutoModelForm
+from produtos.forms import ProdutoModelForm, ServicoModelForm
 from django.http import HttpResponseRedirect
 
 
@@ -54,13 +54,6 @@ def alterar_produto(request, id):
 
 def excluir_produto(request, id):
     produto = get_object_or_404(Produto, pk=id)
-    context = {
-        "produto": produto
-    }
-    return render(request, "templates/excluir_produto.html", context)
-
-def excluir_produto(request, id):
-    produto = get_object_or_404(Produto, pk=id)
     if request.method == "POST":
         produto.excluido = True
         produto.save()
@@ -79,3 +72,19 @@ def listagem_servicos(request):
     }]
     context = {"servicos_dos_vendedores": servicos_dos_vendedores }
     return render(request, "templates/listagem_servicos.html", context)
+
+def cadastro_servico(request):
+    if request.method == "POST":
+        form = ServicoModelForm(request.POST)
+        if form.is_valid():
+            produto = form.save(commit=False)
+            produto.tipo = TIPO_SERVICO
+            produto.save()
+            return HttpResponseRedirect("/servicos/")
+
+    form = ServicoModelForm()
+    context = {
+        "form" : form
+    }
+    
+    return render(request, "templates/cadastrar_servico.html", context)

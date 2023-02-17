@@ -1,0 +1,34 @@
+{% extends "templates/base.html" %}
+
+{% block conteudo%}
+<style> 
+    .page-container{
+        display: grid;
+        justify-content: center;
+    }
+    form{
+        width: 200px;
+    }
+    form > input[type="submit"]{
+        float: right;
+        padding: 5px;
+        margin-top: 10px;
+    }
+    .container-form {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+    }
+
+</style>
+<div class="page-container">
+    <h3> Cadastrar serviços </h3>
+    <form action="{% url "cadastrar_servico" %}" method="post">
+        <div class="container-form">
+            {%csrf_token%}
+            {{form}}
+        </div>
+        <input type="submit" value="cadastrar" />
+    </form>
+</div>
+{%endblock%}
