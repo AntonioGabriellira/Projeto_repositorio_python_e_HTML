@@ -80,6 +80,7 @@ def listagem_servicos(request):
     return render(request, "templates/listagem_servicos.html", context)
 
 def cadastro_servico(request):
+    form = ServicoModelForm()
     if request.method == "POST":
         form = ServicoModelForm(request.POST)
         if form.is_valid():
@@ -88,9 +89,7 @@ def cadastro_servico(request):
             produto.save()
             return HttpResponseRedirect("/servicos/")
 
-    form = ServicoModelForm()
     context = {
         "form" : form
     }
-    
     return render(request, "templates/cadastrar_servico.html", context)
