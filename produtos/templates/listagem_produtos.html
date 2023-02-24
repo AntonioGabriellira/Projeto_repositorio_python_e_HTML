@@ -1,6 +1,12 @@
 {% extends "templates/base.html" %}
 
 {% block conteudo %}
+    <style>
+        .imagem-produto{
+            max-width: 150px;
+            max-height: 100px;
+        }
+    </style>
     Listagem de produtos <a href="cadastrar"> Novo produto </a> 
     {% for produtos_vendedor in produtos_dos_vendedores %}
         <div> 
@@ -8,7 +14,13 @@
         </div>
         <ul style="list-style-type:none;">
         {% for produto in produtos_vendedor.produtos %}
-            <li>{{ produto.nome}} -- R$ {{ produto.preco}} </li><a href="{{produto.id}}"> verificar detalhes </a>
+            <li>
+                {{ produto.nome}} -- R$ {{ produto.preco}} 
+            </li>
+            <a href="{{produto.id}}"> verificar detalhes </a>
+            {% if produto.imagem %}
+                <img src={{ produto.imagem.url }} class="imagem-produto"/>
+            {%endif%}
         {% endfor%}
         </ul>
     {% endfor%}
