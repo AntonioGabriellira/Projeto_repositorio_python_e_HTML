@@ -1,5 +1,5 @@
 {% extends "templates/base.html" %}
-
+{%load static %}
 {% block conteudo %}
     <style>
         .imagem-servico{
@@ -20,6 +20,8 @@
             <a href="{{servico.id}}"> verificar detalhes </a>
             {% if servico.imagem %}
                 <img src={{ servico.imagem.url }} class="imagem-servico"/>
+            {%else%}
+            <img src={% static "/imagem/padrao_servico.png"%} class="imagem-produto"/>
             {%endif%}
         {% endfor%}
         </ul>

@@ -23,7 +23,7 @@
 </style>
 <div class="page-container">
     <h3> Cadastrar produtos </h3>
-    <form action="cadastrar" method="post">
+    <form action="cadastrar" method="post" enctype="multipart/form-data">
         <div class="container-form">
             {%csrf_token%}
             {{form}}

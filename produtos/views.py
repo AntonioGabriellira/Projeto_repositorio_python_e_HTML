@@ -24,19 +24,17 @@ def detalhamento_produto(request, id):
     }
     return render(request, "templates/detalhamento_produto.html", context)
 
-def cadastrar_produto(request):
-    form = ProdutoModelForm()
-    context = {
-        "form" : form
-    }
-    if request.method == "GET":
-        print("É um GET")
+def cadastrar_produto(request):    
     if request.method == "POST":
-        print("É um POST")
-        form = ProdutoModelForm(request.POST)
+        form = ProdutoModelForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect("/produtos/")
+        
+    form = ProdutoModelForm()
+    context = {
+        "form" : form
+    }    
     return render(request, "templates/cadastrar_produtos.html", context)
 
 def alterar_produto(request, id):
@@ -82,7 +80,7 @@ def listagem_servicos(request):
 def cadastro_servico(request):
     form = ServicoModelForm()
     if request.method == "POST":
-        form = ServicoModelForm(request.POST)
+        form = ServicoModelForm(request.POST, request.FILES)
         if form.is_valid():
             produto = form.save(commit=False)
             produto.tipo = TIPO_SERVICO

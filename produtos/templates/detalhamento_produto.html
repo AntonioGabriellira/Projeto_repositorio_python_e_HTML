@@ -1,10 +1,18 @@
 {% extends "templates/base.html" %}
 {% block conteudo%}
-
+<style>
+    .imagem-produto{
+        max-width: 300px;
+        max-height: 250px;
+    }
+</style>
 <div> 
     <h3>Nome: {{produto.nome}} </h3>
-    <h3>Preço: {{produto.preco}} </h3>
+    <h3>Preço: R$ {{produto.preco}} </h3>
     <a href="{{produto.id}}/alterar_produto">Alterar produto </a>
     <a href="{{produto.id}}/excluir">Excluir produto </a>
 </div>
+{% if produto.imagem %}
+    <img src={{ produto.imagem.url }} class="imagem-produto"/>
+{%endif%}
 {%endblock%}

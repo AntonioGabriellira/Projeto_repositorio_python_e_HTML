@@ -23,7 +23,7 @@
 </style>
 <div class="page-container">
     <h3> Cadastrar serviços </h3>
-    <form action="{% url "cadastrar_servico" %}" method="post">
+    <form action="{% url "cadastrar_servico" %}" method="post" enctype="multipart/form-data">
         <div class="container-form">
             {%csrf_token%}
             {{form}}
